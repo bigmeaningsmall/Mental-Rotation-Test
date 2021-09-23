@@ -123,6 +123,55 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &2402342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2402344}
+  - component: {fileID: 2402343}
+  m_Layer: 0
+  m_Name: DAO
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2402343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2402342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6941e25f945aef147880b95da8c21c12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultShapeMaterial: {fileID: 2100000, guid: 8b09fe6bef6e2a44594995bc05ccdfcf, type: 2}
+  highlightShapeMaterial: {fileID: 0}
+  defaultShapeColour: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
+  highlightShapeColour: {r: 1, g: 0, b: 0.4039216, a: 1}
+  animationDuration: 0.479
+  animationStrength: 1
+--- !u!4 &2402344
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2402342}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5337819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,7 +1124,6 @@ GameObject:
   m_Component:
   - component: {fileID: 178866526}
   - component: {fileID: 178866527}
-  - component: {fileID: 178866528}
   - component: {fileID: 178866529}
   m_Layer: 0
   m_Name: Shape 1 wrong
@@ -1120,69 +1168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tag: 2
---- !u!114 &178866528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 178866525}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 841b72de2996c5c40bfb394f3d0e0a98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Feedbacks: []
-  InitializationMode: 2
-  SafeMode: 3
-  Direction: 0
-  AutoChangeDirectionOnEnd: 0
-  AutoPlayOnStart: 0
-  AutoPlayOnEnable: 0
-  DurationMultiplier: 1
-  DisplayFullDurationDetails: 0
-  CooldownDuration: 0
-  InitialDelay: 0
-  CanPlayWhileAlreadyPlaying: 1
-  FeedbacksIntensity: 1
-  Events:
-    TriggerMMFeedbacksEvents: 0
-    TriggerUnityEvents: 1
-    OnPlay:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    OnPause:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    OnResume:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    OnRevert:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    OnComplete:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    <OnPlayIsNull>k__BackingField: 0
-    <OnPauseIsNull>k__BackingField: 0
-    <OnResumeIsNull>k__BackingField: 0
-    <OnRevertIsNull>k__BackingField: 0
-    <OnCompleteIsNull>k__BackingField: 0
-  DebugActive: 0
-  <IsPlaying>k__BackingField: 0
-  <InScriptDrivenPause>k__BackingField: 0
-  <ContainsLoop>k__BackingField: 0
-  <ShouldRevertOnNextPlay>k__BackingField: 0
-  _startTime: 0
-  _holdingMax: 0
-  _lastStartAt: 0
-  _pauseFound: 0
-  _totalDuration: 0
 --- !u!114 &178866529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1195,6 +1180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5106be011a1dea43ba51cc78831126e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  t: []
+  r: []
 --- !u!1 &186424507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,6 +1438,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5106be011a1dea43ba51cc78831126e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  t: []
+  r: []
 --- !u!1 &206159220
 GameObject:
   m_ObjectHideFlags: 0
@@ -7283,7 +7272,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1299703509}
   - component: {fileID: 1299703510}
-  - component: {fileID: 1299703511}
   - component: {fileID: 1299703512}
   m_Layer: 0
   m_Name: Shape 1 wrong
@@ -7328,69 +7316,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tag: 2
---- !u!114 &1299703511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1299703508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 841b72de2996c5c40bfb394f3d0e0a98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Feedbacks: []
-  InitializationMode: 2
-  SafeMode: 3
-  Direction: 0
-  AutoChangeDirectionOnEnd: 0
-  AutoPlayOnStart: 0
-  AutoPlayOnEnable: 0
-  DurationMultiplier: 1
-  DisplayFullDurationDetails: 0
-  CooldownDuration: 0
-  InitialDelay: 0
-  CanPlayWhileAlreadyPlaying: 1
-  FeedbacksIntensity: 1
-  Events:
-    TriggerMMFeedbacksEvents: 0
-    TriggerUnityEvents: 1
-    OnPlay:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    OnPause:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    OnResume:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    OnRevert:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    OnComplete:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    <OnPlayIsNull>k__BackingField: 0
-    <OnPauseIsNull>k__BackingField: 0
-    <OnResumeIsNull>k__BackingField: 0
-    <OnRevertIsNull>k__BackingField: 0
-    <OnCompleteIsNull>k__BackingField: 0
-  DebugActive: 0
-  <IsPlaying>k__BackingField: 0
-  <InScriptDrivenPause>k__BackingField: 0
-  <ContainsLoop>k__BackingField: 0
-  <ShouldRevertOnNextPlay>k__BackingField: 0
-  _startTime: 0
-  _holdingMax: 0
-  _lastStartAt: 0
-  _pauseFound: 0
-  _totalDuration: 0
 --- !u!114 &1299703512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7403,6 +7328,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5106be011a1dea43ba51cc78831126e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  t: []
+  r: []
 --- !u!1 &1314129041
 GameObject:
   m_ObjectHideFlags: 0
@@ -8959,6 +8886,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5106be011a1dea43ba51cc78831126e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  t: []
+  r: []
 --- !u!1 &1522171182
 GameObject:
   m_ObjectHideFlags: 0
@@ -11786,6 +11715,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd87281012718bb49a719478ac2901b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canInteract: 1
+  interactTimer: 0
   shapeCollection:
   - {fileID: 457336063}
   - {fileID: 446794853}
@@ -13047,7 +12978,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2070893312}
   - component: {fileID: 2070893313}
-  - component: {fileID: 2070893314}
   - component: {fileID: 2070893315}
   m_Layer: 0
   m_Name: Shape 1 Correct
@@ -13092,69 +13022,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tag: 1
---- !u!114 &2070893314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070893311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 841b72de2996c5c40bfb394f3d0e0a98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Feedbacks: []
-  InitializationMode: 2
-  SafeMode: 3
-  Direction: 0
-  AutoChangeDirectionOnEnd: 0
-  AutoPlayOnStart: 0
-  AutoPlayOnEnable: 0
-  DurationMultiplier: 1
-  DisplayFullDurationDetails: 0
-  CooldownDuration: 0
-  InitialDelay: 0
-  CanPlayWhileAlreadyPlaying: 1
-  FeedbacksIntensity: 1
-  Events:
-    TriggerMMFeedbacksEvents: 0
-    TriggerUnityEvents: 1
-    OnPlay:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    OnPause:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    OnResume:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    OnRevert:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    OnComplete:
-      m_PersistentCalls:
-        m_Calls: []
-      m_CallsDirty: 1
-    <OnPlayIsNull>k__BackingField: 0
-    <OnPauseIsNull>k__BackingField: 0
-    <OnResumeIsNull>k__BackingField: 0
-    <OnRevertIsNull>k__BackingField: 0
-    <OnCompleteIsNull>k__BackingField: 0
-  DebugActive: 0
-  <IsPlaying>k__BackingField: 0
-  <InScriptDrivenPause>k__BackingField: 0
-  <ContainsLoop>k__BackingField: 0
-  <ShouldRevertOnNextPlay>k__BackingField: 0
-  _startTime: 0
-  _holdingMax: 0
-  _lastStartAt: 0
-  _pauseFound: 0
-  _totalDuration: 0
 --- !u!114 &2070893315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13167,6 +13034,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5106be011a1dea43ba51cc78831126e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  t: []
+  r: []
 --- !u!1 &2079697065
 GameObject:
   m_ObjectHideFlags: 0

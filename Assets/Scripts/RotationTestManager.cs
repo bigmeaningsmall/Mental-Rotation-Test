@@ -4,6 +4,9 @@ using UnityEngine;
 using System.Linq;
 
 public class RotationTestManager : MonoBehaviour{
+
+    public bool canInteract = true;
+    public float interactTimer;
     
     public List<GameObject> shapeCollection;
 
@@ -16,6 +19,7 @@ public class RotationTestManager : MonoBehaviour{
     public int selectedShape;
 
     public Transform[] shapes = new Transform[0];
+    public Transform[] activeShapes = new Transform[4];
 
     void Awake()
     {
@@ -58,6 +62,16 @@ public class RotationTestManager : MonoBehaviour{
         }
     }
     
+    public void ShuffleShapes(){
+        Transform temp;
+        for (int i = 0; i < shapePositions.Length; i++) {
+            int rnd = Random.Range(0, shapePositions.Length);
+            temp = shapePositions[rnd];
+            shapePositions[rnd] = shapePositions[i];
+            shapePositions[i] = temp;
+        }
+        
+    }
     public void ShufflePositions(){
         Transform temp;
         for (int i = 0; i < shapePositions.Length; i++) {
@@ -70,33 +84,57 @@ public class RotationTestManager : MonoBehaviour{
     }
     
     void Update(){
-        if (Input.GetMouseButtonDown(0)){
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit)){
-                if (hit.transform == shapeColliders[0]){
-                    Debug.Log(shapePositions[0].transform.name);
-                    selectedShape = int.Parse(shapePositions[0].transform.name);
+        if (canInteract){
+            if (Input.GetMouseButtonDown(0)){
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit)){
+                    interactTimer = 0;
+                    ResetSelection();
+                    if (hit.transform == shapeColliders[0]){
+                        Debug.Log(shapePositions[0].transform.name);
+                        selectedShape = int.Parse(shapePositions[0].transform.name);
+                    }
+                    if (hit.transform == shapeColliders[1]){
+                        Debug.Log(shapePositions[1].transform.name);
+                        selectedShape = int.Parse(shapePositions[1].transform.name);
+                    }
+                    if (hit.transform == shapeColliders[2]){
+                        Debug.Log(shapePositions[2].transform.name);
+                        selectedShape = int.Parse(shapePositions[2].transform.name);
+                    }
+                    if (hit.transform == shapeColliders[3]){
+                        Debug.Log(shapePositions[3].transform.name);
+                        selectedShape = int.Parse(shapePositions[3].transform.name);
+                    }
+                    //get shape tag
+                    string tag = shapes[selectedShape].GetComponent<ShapeTag>().tag.ToString();
+                    Debug.Log(tag);
+                    //change selected shape materials & animate
+                    shapes[selectedShape].GetComponent<ShapeSelector>().Select();
+                    Debug.Log(shapes[selectedShape]);
                 }
-                if (hit.transform == shapeColliders[1]){
-                    Debug.Log(shapePositions[1].transform.name);
-                    selectedShape = int.Parse(shapePositions[1].transform.name);
-                }
-                if (hit.transform == shapeColliders[2]){
-                    Debug.Log(shapePositions[2].transform.name);
-                    selectedShape = int.Parse(shapePositions[2].transform.name);
-                }
-                if (hit.transform == shapeColliders[3]){
-                    Debug.Log(shapePositions[3].transform.name);
-                    selectedShape = int.Parse(shapePositions[3].transform.name);
-                }
-                //get shape tag
-                string tag = shapes[selectedShape].GetComponent<ShapeTag>().tag.ToString();
-                Debug.Log(tag);
-                //change selected shape materials
-                shapes[selectedShape].GetComponent<ShapeMaterialSwitcher>().SwitchMaterial();
-                //animate??
             }
         }
+        
+        interactTimer += Time.deltaTime;
+        if (interactTimer < DAO.instance.animationDuration+0.05f){
+            canInteract = false;
+        }
+        else{
+            canInteract = true;
+        }
+
+        if (interactTimer > 10){ interactTimer = 1; }
+
+
     }
+
+    private void ResetSelection(){
+        for (int i = 1; i < shapes.Length; i++){
+            shapes[i].GetComponent<ShapeSelector>().Reset();
+        }
+        
+    }
+    // private IEnumerator ResetInteraction
 }
