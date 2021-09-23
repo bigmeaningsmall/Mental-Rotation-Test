@@ -9,13 +9,18 @@ public class RotationTestManager : MonoBehaviour{
 
     public Transform shapePositionZero;
     public Transform[] shapePositions = new Transform[4];
-    // public Transform[] shapeColliders = new Transform[4];
+    public Transform[] shapeColliders = new Transform[4];
     
     public int shapeTotal;
     public int shapeIndex = 0;
+    public int selectedShape;
 
     public Transform[] s = new Transform[0];
 
+    void Awake()
+    {
+        //shapeColliders = shapePositions;
+    }
     void Start(){
         shapeTotal = shapes.Count;
 
@@ -23,8 +28,6 @@ public class RotationTestManager : MonoBehaviour{
             shapes[i].SetActive(false);
         }
 
-        // shapeColliders = shapePositions;
-        
         SetShapes();
     }
     void SetShapes(){
@@ -66,24 +69,27 @@ public class RotationTestManager : MonoBehaviour{
         
     }
     
-    //TODO - Work out how to get which shape is at which position
     void Update(){
         if (Input.GetMouseButtonDown(0)){
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit)){
-                if (hit.transform == shapePositions[0]){
-                    Debug.Log("shape selected: " + int.Parse(shapePositions[0].transform.name).ToString());
-                    Debug.Log(shapePositions[0].transform);
+                if (hit.transform == shapeColliders[0]){
+                    Debug.Log(shapePositions[0].transform.name);
+                    selectedShape = int.Parse(shapePositions[0].transform.name);
+                    //Debug.Log(shapes[selectedShape].GetComponent<ShapeTag>);
                 }
-                if (hit.transform == shapePositions[1]){
-                    Debug.Log("shape selected: " + shapePositions[1].transform.name);
+                if (hit.transform == shapeColliders[1]){
+                    Debug.Log(shapePositions[1].transform.name);
+                    selectedShape = int.Parse(shapePositions[1].transform.name);
                 }
-                if (hit.transform == shapePositions[2]){
-                    Debug.Log("shape selected: " + shapePositions[2].transform.name);
+                if (hit.transform == shapeColliders[2]){
+                    Debug.Log(shapePositions[2].transform.name);
+                    selectedShape = int.Parse(shapePositions[2].transform.name);
                 }
-                if (hit.transform == shapePositions[3]){
-                    Debug.Log("shape selected: " + shapePositions[3].transform.name);
+                if (hit.transform == shapeColliders[3]){
+                    Debug.Log(shapePositions[3].transform.name);
+                    selectedShape = int.Parse(shapePositions[3].transform.name);
                 }
             }
         }
