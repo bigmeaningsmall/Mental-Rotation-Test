@@ -5,7 +5,7 @@ using System.Linq;
 
 public class RotationTestManager : MonoBehaviour{
     
-    public List<GameObject> shapes;
+    public List<GameObject> shapeCollection;
 
     public Transform shapePositionZero;
     public Transform[] shapePositions = new Transform[4];
@@ -15,17 +15,17 @@ public class RotationTestManager : MonoBehaviour{
     public int shapeIndex = 0;
     public int selectedShape;
 
-    public Transform[] s = new Transform[0];
+    public Transform[] shapes = new Transform[0];
 
     void Awake()
     {
         //shapeColliders = shapePositions;
     }
     void Start(){
-        shapeTotal = shapes.Count;
+        shapeTotal = shapeCollection.Count;
 
-        for (int i = 0; i < shapes.Count; i++){
-            shapes[i].SetActive(false);
+        for (int i = 0; i < shapeCollection.Count; i++){
+            shapeCollection[i].SetActive(false);
         }
 
         SetShapes();
@@ -33,27 +33,27 @@ public class RotationTestManager : MonoBehaviour{
     void SetShapes(){
         
         //deactivate all
-        for (int i = 0; i < shapes.Count; i++){
-            shapes[i].SetActive(false);
+        for (int i = 0; i < shapeCollection.Count; i++){
+            shapeCollection[i].SetActive(false);
         }
         
         //activate shape at index
-        shapes[shapeIndex].SetActive(true);
+        shapeCollection[shapeIndex].SetActive(true);
         
         //get child shapes from index
-        s = new Transform[shapes[shapeIndex].transform.childCount];
+        shapes = new Transform[shapeCollection[shapeIndex].transform.childCount];
         
         //shuffle positions
         ShufflePositions();
         
         //get and position shapes 
-        for (int i = 0; i < s.Length; i++){
-            s[i] = shapes[shapeIndex].transform.GetChild(i);
+        for (int i = 0; i < shapes.Length; i++){
+            shapes[i] = shapeCollection[shapeIndex].transform.GetChild(i);
         }
-        s[0].transform.position = shapePositionZero.position;
+        shapes[0].transform.position = shapePositionZero.position;
         for (int i = 0; i < shapePositions.Length; i++){
-            s[i+1].transform.position = shapePositions[i].position;
-            Debug.Log(s[i]);
+            shapes[i+1].transform.position = shapePositions[i].position;
+            Debug.Log(shapes[i]);
             //animate
         }
     }
@@ -77,7 +77,6 @@ public class RotationTestManager : MonoBehaviour{
                 if (hit.transform == shapeColliders[0]){
                     Debug.Log(shapePositions[0].transform.name);
                     selectedShape = int.Parse(shapePositions[0].transform.name);
-                    //Debug.Log(shapes[selectedShape].GetComponent<ShapeTag>);
                 }
                 if (hit.transform == shapeColliders[1]){
                     Debug.Log(shapePositions[1].transform.name);
@@ -91,6 +90,12 @@ public class RotationTestManager : MonoBehaviour{
                     Debug.Log(shapePositions[3].transform.name);
                     selectedShape = int.Parse(shapePositions[3].transform.name);
                 }
+                //get shape tag
+                string tag = shapes[selectedShape].GetComponent<ShapeTag>().tag.ToString();
+                Debug.Log(tag);
+                //change selected shape materials
+                shapes[selectedShape].GetComponent<ShapeMaterialSwitcher>().SwitchMaterial();
+                //animate??
             }
         }
     }

@@ -1075,6 +1075,8 @@ GameObject:
   m_Component:
   - component: {fileID: 178866526}
   - component: {fileID: 178866527}
+  - component: {fileID: 178866528}
+  - component: {fileID: 178866529}
   m_Layer: 0
   m_Name: Shape 1 wrong
   m_TagString: Untagged
@@ -1118,6 +1120,81 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tag: 2
+--- !u!114 &178866528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178866525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841b72de2996c5c40bfb394f3d0e0a98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks: []
+  InitializationMode: 2
+  SafeMode: 3
+  Direction: 0
+  AutoChangeDirectionOnEnd: 0
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  DurationMultiplier: 1
+  DisplayFullDurationDetails: 0
+  CooldownDuration: 0
+  InitialDelay: 0
+  CanPlayWhileAlreadyPlaying: 1
+  FeedbacksIntensity: 1
+  Events:
+    TriggerMMFeedbacksEvents: 0
+    TriggerUnityEvents: 1
+    OnPlay:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    OnPause:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    OnResume:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    OnRevert:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    OnComplete:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    <OnPlayIsNull>k__BackingField: 0
+    <OnPauseIsNull>k__BackingField: 0
+    <OnResumeIsNull>k__BackingField: 0
+    <OnRevertIsNull>k__BackingField: 0
+    <OnCompleteIsNull>k__BackingField: 0
+  DebugActive: 0
+  <IsPlaying>k__BackingField: 0
+  <InScriptDrivenPause>k__BackingField: 0
+  <ContainsLoop>k__BackingField: 0
+  <ShouldRevertOnNextPlay>k__BackingField: 0
+  _startTime: 0
+  _holdingMax: 0
+  _lastStartAt: 0
+  _pauseFound: 0
+  _totalDuration: 0
+--- !u!114 &178866529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178866525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5106be011a1dea43ba51cc78831126e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &186424507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,6 +1395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 195555015}
   - component: {fileID: 195555016}
+  - component: {fileID: 195555017}
   m_Layer: 0
   m_Name: Shape 1 Correct
   m_TagString: Untagged
@@ -1361,6 +1439,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tag: 1
+--- !u!114 &195555017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195555014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5106be011a1dea43ba51cc78831126e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &206159220
 GameObject:
   m_ObjectHideFlags: 0
@@ -2399,7 +2489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 446794854}
   m_Layer: 0
-  m_Name: Shape2
+  m_Name: ShapeCollection2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2434,7 +2524,7 @@ GameObject:
   m_Component:
   - component: {fileID: 457336064}
   m_Layer: 0
-  m_Name: Shape1
+  m_Name: ShapeCollection1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7193,6 +7283,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1299703509}
   - component: {fileID: 1299703510}
+  - component: {fileID: 1299703511}
+  - component: {fileID: 1299703512}
   m_Layer: 0
   m_Name: Shape 1 wrong
   m_TagString: Untagged
@@ -7236,6 +7328,81 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tag: 2
+--- !u!114 &1299703511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299703508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841b72de2996c5c40bfb394f3d0e0a98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks: []
+  InitializationMode: 2
+  SafeMode: 3
+  Direction: 0
+  AutoChangeDirectionOnEnd: 0
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  DurationMultiplier: 1
+  DisplayFullDurationDetails: 0
+  CooldownDuration: 0
+  InitialDelay: 0
+  CanPlayWhileAlreadyPlaying: 1
+  FeedbacksIntensity: 1
+  Events:
+    TriggerMMFeedbacksEvents: 0
+    TriggerUnityEvents: 1
+    OnPlay:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    OnPause:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    OnResume:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    OnRevert:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    OnComplete:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    <OnPlayIsNull>k__BackingField: 0
+    <OnPauseIsNull>k__BackingField: 0
+    <OnResumeIsNull>k__BackingField: 0
+    <OnRevertIsNull>k__BackingField: 0
+    <OnCompleteIsNull>k__BackingField: 0
+  DebugActive: 0
+  <IsPlaying>k__BackingField: 0
+  <InScriptDrivenPause>k__BackingField: 0
+  <ContainsLoop>k__BackingField: 0
+  <ShouldRevertOnNextPlay>k__BackingField: 0
+  _startTime: 0
+  _holdingMax: 0
+  _lastStartAt: 0
+  _pauseFound: 0
+  _totalDuration: 0
+--- !u!114 &1299703512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299703508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5106be011a1dea43ba51cc78831126e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1314129041
 GameObject:
   m_ObjectHideFlags: 0
@@ -8736,6 +8903,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1521420781}
   - component: {fileID: 1521420782}
+  - component: {fileID: 1521420783}
   m_Layer: 0
   m_Name: Shape 1 To Match
   m_TagString: Untagged
@@ -8779,6 +8947,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tag: 0
+--- !u!114 &1521420783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521420780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5106be011a1dea43ba51cc78831126e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1522171182
 GameObject:
   m_ObjectHideFlags: 0
@@ -11606,7 +11786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd87281012718bb49a719478ac2901b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shapes:
+  shapeCollection:
   - {fileID: 457336063}
   - {fileID: 446794853}
   shapePositionZero: {fileID: 1514622464}
@@ -11616,13 +11796,14 @@ MonoBehaviour:
   - {fileID: 626442938}
   - {fileID: 876682583}
   shapeColliders:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 734355107}
+  - {fileID: 1612260765}
+  - {fileID: 626442938}
+  - {fileID: 876682583}
   shapeTotal: 0
   shapeIndex: 0
-  s: []
+  selectedShape: 0
+  shapes: []
 --- !u!4 &1924039915
 Transform:
   m_ObjectHideFlags: 0
@@ -12866,6 +13047,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2070893312}
   - component: {fileID: 2070893313}
+  - component: {fileID: 2070893314}
+  - component: {fileID: 2070893315}
   m_Layer: 0
   m_Name: Shape 1 Correct
   m_TagString: Untagged
@@ -12909,6 +13092,81 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tag: 1
+--- !u!114 &2070893314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070893311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841b72de2996c5c40bfb394f3d0e0a98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks: []
+  InitializationMode: 2
+  SafeMode: 3
+  Direction: 0
+  AutoChangeDirectionOnEnd: 0
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  DurationMultiplier: 1
+  DisplayFullDurationDetails: 0
+  CooldownDuration: 0
+  InitialDelay: 0
+  CanPlayWhileAlreadyPlaying: 1
+  FeedbacksIntensity: 1
+  Events:
+    TriggerMMFeedbacksEvents: 0
+    TriggerUnityEvents: 1
+    OnPlay:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    OnPause:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    OnResume:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    OnRevert:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    OnComplete:
+      m_PersistentCalls:
+        m_Calls: []
+      m_CallsDirty: 1
+    <OnPlayIsNull>k__BackingField: 0
+    <OnPauseIsNull>k__BackingField: 0
+    <OnResumeIsNull>k__BackingField: 0
+    <OnRevertIsNull>k__BackingField: 0
+    <OnCompleteIsNull>k__BackingField: 0
+  DebugActive: 0
+  <IsPlaying>k__BackingField: 0
+  <InScriptDrivenPause>k__BackingField: 0
+  <ContainsLoop>k__BackingField: 0
+  <ShouldRevertOnNextPlay>k__BackingField: 0
+  _startTime: 0
+  _holdingMax: 0
+  _lastStartAt: 0
+  _pauseFound: 0
+  _totalDuration: 0
+--- !u!114 &2070893315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070893311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5106be011a1dea43ba51cc78831126e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2079697065
 GameObject:
   m_ObjectHideFlags: 0
