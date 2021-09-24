@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class RotationTestManager : MonoBehaviour{
 
+    public Button nextButton;
+    
     public bool canInteract = true;
     public float interactTimer;
     
@@ -12,8 +15,7 @@ public class RotationTestManager : MonoBehaviour{
 
     public Transform shapePositionZero;
     public Transform[] shapePositions = new Transform[4];
-    public Transform[] shapeColliders = new Transform[4];
-    
+
     public int shapeTotal;
     public int shapeIndex = 0;
     public int selectedShape;
@@ -21,9 +23,8 @@ public class RotationTestManager : MonoBehaviour{
     public Transform[] shapes = new Transform[0];
     public Transform[] activeShapes = new Transform[4];
 
-    void Awake()
-    {
-        //shapeColliders = shapePositions;
+    void Awake(){
+        
     }
     void Start(){
         shapeTotal = shapeCollection.Count;
@@ -32,6 +33,8 @@ public class RotationTestManager : MonoBehaviour{
             shapeCollection[i].SetActive(false);
         }
 
+        nextButton.interactable = false;
+        
         SetShapes();
     }
     void SetShapes(){
@@ -46,17 +49,30 @@ public class RotationTestManager : MonoBehaviour{
         
         //get child shapes from index
         shapes = new Transform[shapeCollection[shapeIndex].transform.childCount];
-        
-        //shuffle positions
-        ShufflePositions();
-        
+
+
         //get and position shapes 
         for (int i = 0; i < shapes.Length; i++){
             shapes[i] = shapeCollection[shapeIndex].transform.GetChild(i);
         }
+        
+        //get the 4 active shapes - exclude 0 in array 
+        for (int i = 1; i < shapes.Length; i++){
+            activeShapes[i-1] = shapes[i];
+        }
+        // add colliders to active shapes
+        for (int i = 0; i < activeShapes.Length; i++){
+            activeShapes[i].gameObject.AddComponent<BoxCollider>();
+            BoxCollider c = activeShapes[i].GetComponent<BoxCollider>();
+            c.size = new Vector3(5, 5, 1);
+        }
+        
+        //shuffle shapes
+        ShuffleShapes();
+        
         shapes[0].transform.position = shapePositionZero.position;
         for (int i = 0; i < shapePositions.Length; i++){
-            shapes[i+1].transform.position = shapePositions[i].position;
+            activeShapes[i].transform.position = shapePositions[i].position;
             Debug.Log(shapes[i]);
             //animate
         }
@@ -64,25 +80,15 @@ public class RotationTestManager : MonoBehaviour{
     
     public void ShuffleShapes(){
         Transform temp;
-        for (int i = 0; i < shapePositions.Length; i++) {
-            int rnd = Random.Range(0, shapePositions.Length);
-            temp = shapePositions[rnd];
-            shapePositions[rnd] = shapePositions[i];
-            shapePositions[i] = temp;
+        for (int i = 0; i < activeShapes.Length; i++) {
+            int rnd = Random.Range(0, activeShapes.Length);
+            temp = activeShapes[rnd];
+            activeShapes[rnd] = activeShapes[i];
+            activeShapes[i] = temp;
         }
         
     }
-    public void ShufflePositions(){
-        Transform temp;
-        for (int i = 0; i < shapePositions.Length; i++) {
-            int rnd = Random.Range(0, shapePositions.Length);
-            temp = shapePositions[rnd];
-            shapePositions[rnd] = shapePositions[i];
-            shapePositions[i] = temp;
-        }
-        
-    }
-    
+
     void Update(){
         if (canInteract){
             if (Input.GetMouseButtonDown(0)){
@@ -91,28 +97,35 @@ public class RotationTestManager : MonoBehaviour{
                 if (Physics.Raycast(ray, out hit)){
                     interactTimer = 0;
                     ResetSelection();
-                    if (hit.transform == shapeColliders[0]){
-                        Debug.Log(shapePositions[0].transform.name);
-                        selectedShape = int.Parse(shapePositions[0].transform.name);
+
+                    if (hit.transform == activeShapes[0]){
+                        selectedShape = 0;
+                        activeShapes[0].GetComponent<ShapeSelector>().Select();
+                        nextButton.interactable = true;
                     }
-                    if (hit.transform == shapeColliders[1]){
-                        Debug.Log(shapePositions[1].transform.name);
-                        selectedShape = int.Parse(shapePositions[1].transform.name);
+                    if (hit.transform == activeShapes[1]){
+                        selectedShape = 1;
+                        activeShapes[1].GetComponent<ShapeSelector>().Select();
+                        nextButton.interactable = true;
                     }
-                    if (hit.transform == shapeColliders[2]){
-                        Debug.Log(shapePositions[2].transform.name);
-                        selectedShape = int.Parse(shapePositions[2].transform.name);
+                    if (hit.transform == activeShapes[2]){
+                        selectedShape = 2;
+                        activeShapes[2].GetComponent<ShapeSelector>().Select();
+                        nextButton.interactable = true;
                     }
-                    if (hit.transform == shapeColliders[3]){
-                        Debug.Log(shapePositions[3].transform.name);
-                        selectedShape = int.Parse(shapePositions[3].transform.name);
+                    if (hit.transform == activeShapes[3]){
+                        selectedShape = 3;
+                        activeShapes[3].GetComponent<ShapeSelector>().Select();
+                        nextButton.interactable = true;
                     }
+                    
                     //get shape tag
-                    string tag = shapes[selectedShape].GetComponent<ShapeTag>().tag.ToString();
+                    string tag = activeShapes[selectedShape].GetComponent<ShapeTag>().tag.ToString();
                     Debug.Log(tag);
-                    //change selected shape materials & animate
-                    shapes[selectedShape].GetComponent<ShapeSelector>().Select();
-                    Debug.Log(shapes[selectedShape]);
+                }
+                else{
+                    ResetSelection();
+                    nextButton.interactable = false;
                 }
             }
         }
@@ -131,8 +144,8 @@ public class RotationTestManager : MonoBehaviour{
     }
 
     private void ResetSelection(){
-        for (int i = 1; i < shapes.Length; i++){
-            shapes[i].GetComponent<ShapeSelector>().Reset();
+        for (int i = 0; i < activeShapes.Length; i++){
+            activeShapes[i].GetComponent<ShapeSelector>().Reset();
         }
         
     }
