@@ -11,6 +11,8 @@ public class DAO : MonoBehaviour{
     
     public Color defaultShapeColour;
     public Color highlightShapeColour;
+    public Color correctShapeColour;
+    public Color incorrectShapeColour;
 
     [Range(0,1)]
     public float animationDuration = 0.5f;

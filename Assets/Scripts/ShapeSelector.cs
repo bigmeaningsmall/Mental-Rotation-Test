@@ -9,13 +9,15 @@ public class ShapeSelector : MonoBehaviour
     
     private Color defaultC;
     private Color highlightC;
+    private Color correctC;
+    private Color incorrectC;
     private float d;
     private float str;
 
     public Transform[] t = new Transform[0];
     public Renderer[] r = new Renderer[0];
     
-    void Awake(){
+    void Start(){
         // t = new Transform[transform.childCount];
         // r = new Renderer[t.Length];
 
@@ -23,6 +25,8 @@ public class ShapeSelector : MonoBehaviour
         
         defaultC = DAO.instance.defaultShapeColour;
         highlightC = DAO.instance.highlightShapeColour;
+        correctC = DAO.instance.correctShapeColour;
+        incorrectC = DAO.instance.incorrectShapeColour;
 
         d = DAO.instance.animationDuration;
         str = DAO.instance.animationStrength;
@@ -36,12 +40,6 @@ public class ShapeSelector : MonoBehaviour
         Initialise();
     }
 
-    void Start()
-    {
-        //maybe assign all materials from a parent singleton class so modifications can be made easily
-        
-    }
-
     void Initialise(){
         for (int i = 0; i < r.Length; i++){
             r[i].material = shapeMat;
@@ -52,9 +50,20 @@ public class ShapeSelector : MonoBehaviour
         StartCoroutine(ColourShapes(highlightC, 0.025f));
         StartCoroutine(AnimateShapes(str,0.025f));
     }
+    public void Correct(){
+        StartCoroutine(ColourShapes(correctC, 0.025f));
+        StartCoroutine(AnimateShapes(str,0.025f));
+    }
+    public void Incorrect(){
+        StartCoroutine(ColourShapes(incorrectC, 0.025f));
+        StartCoroutine(AnimateShapes(str,0.025f));
+    }
     public void Reset(){
         StartCoroutine(ColourShapes(defaultC, 0.01f));
         StartCoroutine(AnimateShapes(str/4,0.01f));
+    }
+    public void ResetColour(){
+        StartCoroutine(ColourShapes(defaultC, 0.01f));
     }
     private IEnumerator ColourShapes(Color c, float w){
         for (int i = 0; i < r.Length; i++){
