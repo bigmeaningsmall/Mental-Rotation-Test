@@ -8,19 +8,29 @@ using UnityEngine.UI;
 using Enums;
 using TMPro;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class RotationTestManager : MonoBehaviour{
 
     [Header("UI")]
     public Button startButton;
     public Button nextButton;
+    public Button practiceRestartButton;
+    public Button practiceBeginButton;
+    public Button endButton;
     public Transform dividerLine1;
     public Transform titleText;
     public Transform titleInfo;
     public Transform scoreUIDisplay;
     public Transform scoreDisplay;
     public Transform timeTakenDisplay;
+    public Transform avgTimeTakenDisplay;
+    public Transform practiceCompleteUIDisplay;
+    public Transform infoText;
+    public Transform tickIcon;
+    public Transform xIcon;
 
+    public int practiceQuestions = 4;
     [Range(0,0.5f)]
     public float animationDuration = 0.125f;
 
@@ -31,7 +41,8 @@ public class RotationTestManager : MonoBehaviour{
 
     public bool canInteract = true;
     public float interactTimer;
-    
+
+    public Transform resetCollider;
     public List<GameObject> shapeCollection;
 
     public Transform shapePositionZero;
@@ -61,6 +72,10 @@ public class RotationTestManager : MonoBehaviour{
         scoreUIDisplay.transform.DOScale(0, 0);
         scoreDisplay.transform.DOScale(0, 0);
         timeTakenDisplay.transform.DOScale(0, 0);
+        avgTimeTakenDisplay.transform.DOScale(0, 0);
+        
+        practiceCompleteUIDisplay.transform.DOScale(0, 0);
+        infoText.transform.DOScale(0, 0);
         
         startButton.transform.DOScale(0, 0);
         startButton.interactable = true;
@@ -68,6 +83,14 @@ public class RotationTestManager : MonoBehaviour{
         
         nextButton.transform.DOScale(0, 0);
         nextButton.interactable = false;
+        
+        practiceRestartButton.transform.DOScale(0, 0);
+        practiceRestartButton.interactable = false;
+        practiceBeginButton.transform.DOScale(0, 0);
+        practiceBeginButton.interactable = false;
+        
+        tickIcon.transform.DOScale(0, 0);
+        xIcon.transform.DOScale(0, 0);
 
         StartCoroutine(InitialiseInferface());
     }
@@ -91,6 +114,15 @@ public class RotationTestManager : MonoBehaviour{
         titleInfo.transform.DOScale(0, animationDuration*3);
         startButton.transform.DOScale(0, animationDuration*2);
     }
+    private void RemovePracticeInterface(){
+        practiceCompleteUIDisplay.transform.DOScale(0, animationDuration*4);
+        practiceRestartButton.transform.DOScale(0, animationDuration*3);
+        practiceBeginButton.transform.DOScale(0, animationDuration*3);
+    }
+    private void RemoveEndInterface(){
+        scoreUIDisplay.transform.DOScale(0, animationDuration*4);
+        endButton.transform.DOScale(0, animationDuration*3);
+    }
     void Start(){
         
         //deactivate all
@@ -100,6 +132,7 @@ public class RotationTestManager : MonoBehaviour{
         
     }
     public void SetShapes(){
+
         //enable the next button
         nextButton.transform.DOScale(1, 0.5f);
         //deactivate the next button
@@ -120,6 +153,7 @@ public class RotationTestManager : MonoBehaviour{
         //get shapes 
         for (int i = 0; i < shapes.Length; i++){
             shapes[i] = shapeCollection[shapeIndex].transform.GetChild(i);
+            shapes[i].gameObject.SetActive(false);
         }
         
         //get the 4 active shapes - exclude 0 in array 
@@ -131,6 +165,7 @@ public class RotationTestManager : MonoBehaviour{
             activeShapes[i].gameObject.AddComponent<BoxCollider>();
             BoxCollider c = activeShapes[i].GetComponent<BoxCollider>();
             c.size = new Vector3(5, 5, 1);
+            activeShapes[i].GetComponent<BoxCollider>().enabled=false;
         }
         
         //shuffle shapes
@@ -144,8 +179,6 @@ public class RotationTestManager : MonoBehaviour{
             activeShapes[i].transform.position = shapePositions[i].position;
             activeShapes[i].transform.DOScale(0, 0);
             Debug.Log(shapes[i]);
-            
-            
         }
        
         //animate shapes on
@@ -155,6 +188,10 @@ public class RotationTestManager : MonoBehaviour{
     private IEnumerator ShapeSetAnimation(float d){
 
         yield return new WaitForSeconds(d*4);
+        
+        for (int i = 0; i < shapes.Length; i++){
+            shapes[i].gameObject.SetActive(true);
+        }
         
         shapes[0].transform.DOScale(1, d*4);
         
@@ -170,7 +207,18 @@ public class RotationTestManager : MonoBehaviour{
             yield return new WaitForSeconds(d*2);
 
         }
-        timerOn = true;
+
+        resetCollider.gameObject.SetActive(true);
+        for (int i = 0; i < activeShapes.Length; i++){
+            activeShapes[i].GetComponent<BoxCollider>().enabled=true;
+        }
+        
+        //count time after the end of practice answers
+        if (shapeIndex >= practiceQuestions){
+            timerOn = true;
+        }
+        
+        infoText.transform.DOScale(1, d*2);
     }
     private IEnumerator ShapeRemoveAnimation(float d){
         yield return new WaitForSeconds(0);
@@ -183,17 +231,44 @@ public class RotationTestManager : MonoBehaviour{
     }
 
     private IEnumerator CheckAnswerSequence(float d){
+        
+        resetCollider.gameObject.SetActive(false);
+        for (int i = 0; i < activeShapes.Length; i++){
+            activeShapes[i].GetComponent<BoxCollider>().enabled = false;
+        }
+        
+        infoText.transform.DOScale(0, d*2);
+        
         Debug.Log("NEXT");
         
         if (currentAnswer == Tag.Correct){
             answers[shapeIndex] = true;
             shapes[0].GetComponent<ShapeSelector>().Correct();
             activeShapes[selectedShape].GetComponent<ShapeSelector>().Correct();
+            tickIcon.transform.DOScale(1, animationDuration*2);
         }
         else if (currentAnswer == Tag.Incorrect){
             answers[shapeIndex] = false;
             shapes[0].GetComponent<ShapeSelector>().Incorrect();
             activeShapes[selectedShape].GetComponent<ShapeSelector>().Incorrect();
+            xIcon.transform.DOScale(1, animationDuration*2);
+        }
+
+        //first 2 answers are marked correct
+        // if (shapeIndex < 2){
+        //     answers[shapeIndex] = true;
+        // }
+
+        for (int i = 0; i < activeShapes.Length; i++){
+            if (i != selectedShape){
+                activeShapes[i].transform.DOScale(0, d);
+            }
+            else{
+                Vector3 p = new Vector3(shapePositionZero.position.x + 10, shapePositionZero.position.y, shapePositionZero.position.z);
+                activeShapes[i].transform.DOMove(p, d * 2);
+                Quaternion q = shapes[0].rotation;
+                activeShapes[i].transform.DORotate(q.eulerAngles, d * 2);
+            }
         }
         
         yield return new WaitForSeconds(d*20);
@@ -203,6 +278,10 @@ public class RotationTestManager : MonoBehaviour{
         for (int i = 0; i < shapes.Length; i++){
             shapes[i].transform.DOScale(0, d);
             shapes[i].GetComponent<ShapeSelector>().ResetColour();
+            
+            //remove the icons
+            tickIcon.transform.DOScale(0, animationDuration);
+            xIcon.transform.DOScale(0, animationDuration);
         }
         yield return new WaitForSeconds(d*10);
 
@@ -215,22 +294,37 @@ public class RotationTestManager : MonoBehaviour{
         
         //check if ended
         testEnded = CheckEnded();
-        
-        //check if 
-        if (!testEnded){
-            //change to next shape
-            SetShapes();
+
+        //check to display ready to start proper menu else setshapes or end
+        if (shapeIndex == practiceQuestions){
+            practiceCompleteUIDisplay.transform.DOScale(1, animationDuration*4);
+            yield return new WaitForSeconds(d * 10);
+            practiceRestartButton.transform.DOScale(1, animationDuration*4);
+            practiceRestartButton.interactable = true;
+            practiceBeginButton.transform.DOScale(1, animationDuration*4);
+            practiceBeginButton.interactable = true;
         }
         else{
-            //go to end of test
-            CheckFinalScore();
-            StartCoroutine(EndTestSequence());
+            //check if 
+            if (!testEnded){
+                //change to next shape
+                SetShapes();
+            }
+            else{
+                //go to end of test
+                CheckFinalScore();
+                StartCoroutine(EndTestSequence());
+            }
+
         }
 
     }
     private IEnumerator EndTestSequence(){
-        scoreDisplay.transform.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString() + " / " + answers.Length.ToString();
-        timeTakenDisplay.transform.GetComponent<TextMeshProUGUI>().text = "Time Taken: " + timeTaken.ToString() + "s";
+        scoreDisplay.transform.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString() + " / " + (answers.Length-practiceQuestions).ToString();
+        timeTakenDisplay.transform.GetComponent<TextMeshProUGUI>().text = "Time Taken: " + timeTaken.ToString("F2") + "s";
+        avgTimeTakenDisplay.transform.GetComponent<TextMeshProUGUI>().text = "Average Time Per Shape: " + timeTaken.ToString("F2") + "s";
+        
+        resetCollider.gameObject.SetActive(false);
         
         yield return new WaitForSeconds(1f);
         Debug.Log("ENDED");
@@ -238,11 +332,23 @@ public class RotationTestManager : MonoBehaviour{
         
         yield return new WaitForSeconds(animationDuration * 5);
         scoreDisplay.DOScale(1, animationDuration * 2);
-        timeTakenDisplay.DOScale(1, animationDuration * 2);
+        timeTakenDisplay.DOScale(1, animationDuration * 1.75f);
+        avgTimeTakenDisplay.DOScale(1, animationDuration * 1.5f);
     }
-
+    private IEnumerator EndSequence(){
+        yield return new WaitForSeconds(1.5f);
+        Debug.Log("ENDED");
+        
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
     public void CheckFinalScore(){
-        for (int i = 0; i < answers.Length; i++){
+        // for (int i = 0; i < answers.Length; i++){
+        //     if (answers[i] == true){
+        //         score++;
+        //     }
+        // }
+        for (int i = practiceQuestions; i < answers.Length; i++){
             if (answers[i] == true){
                 score++;
             }
@@ -275,8 +381,14 @@ public class RotationTestManager : MonoBehaviour{
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit)){
                     interactTimer = 0;
-                    ResetSelection();
-
+                    //ResetSelection();
+                    
+                    if (hit.transform == resetCollider || hit.transform == activeShapes[0] ||hit.transform == activeShapes[1] ||hit.transform == activeShapes[2] ||hit.transform == activeShapes[3]){
+                        Debug.Log("Reset Selection");
+                        ResetSelection();
+                        nextButton.interactable = false;
+                    }
+                    
                     if (hit.transform == activeShapes[0]){
                         selectedShape = 0;
                         activeShapes[0].GetComponent<ShapeSelector>().Select();
@@ -300,11 +412,17 @@ public class RotationTestManager : MonoBehaviour{
                     
                     //get shape tag
                     currentAnswer = activeShapes[selectedShape].GetComponent<ShapeTag>().tag;
-
+                    
+                    if (hit.transform == resetCollider){
+                        Debug.Log("Reset Selection");
+                        ResetSelection();
+                        nextButton.interactable = false;
+                    }
                 }
                 else{
-                    ResetSelection();
-                    nextButton.interactable = false;
+                    // Debug.Log("Reset Selection");
+                    // ResetSelection();
+                    // nextButton.interactable = false;
                 }
             }
         }
@@ -331,6 +449,7 @@ public class RotationTestManager : MonoBehaviour{
     //button interaction - start
     public void StartTest(){
         //remove start UI
+        startButton.interactable = false;
         RemoveStartInterface();
         //set the first shape
         SetShapes();
@@ -340,8 +459,22 @@ public class RotationTestManager : MonoBehaviour{
         Debug.Log("NEXT");
         timerOn = false;
         nextButton.interactable = false;
+        nextButton.transform.DOScale(0, animationDuration*2);
         StartCoroutine(CheckAnswerSequence(animationDuration));
     }
-
-
+    //button interaction - practice over
+    public void StartProper(){
+        Debug.Log("START THE REAL TEST - practice complete");
+        timerOn = false;
+        practiceRestartButton.interactable = false;
+        RemovePracticeInterface();
+        SetShapes();
+    }
+    //button interaction - practice over
+    public void EndTest(){
+        Debug.Log("test complete");
+        endButton.interactable = false;
+        RemoveEndInterface();
+        StartCoroutine(EndSequence());
+    }
 }

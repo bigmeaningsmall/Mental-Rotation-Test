@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MentalRotationTest.unity
+    guid: 72457403eb000c5418281c9c7d8ada24
   m_configObjects: {}
