@@ -56,8 +56,9 @@ public class RotationTestManager : MonoBehaviour{
     public Transform[] activeShapes = new Transform[4];
 
     [Header("SCORE VARIABLES")]
-    private bool timerOn;
+    public bool timerOn;
     public float timeTaken = 0; //use this to time how long each answer takes (do not count q1 & q2 - easy)
+    public float avgTimeTaken = 0; //use this to time the average for each answer
     public bool[] answers = new bool[0];
     public int score;
 
@@ -322,7 +323,7 @@ public class RotationTestManager : MonoBehaviour{
     private IEnumerator EndTestSequence(){
         scoreDisplay.transform.GetComponent<TextMeshProUGUI>().text = "Score: " + score.ToString() + " / " + (answers.Length-practiceQuestions).ToString();
         timeTakenDisplay.transform.GetComponent<TextMeshProUGUI>().text = "Time Taken: " + timeTaken.ToString("F2") + "s";
-        avgTimeTakenDisplay.transform.GetComponent<TextMeshProUGUI>().text = "Average Time Per Shape: " + timeTaken.ToString("F2") + "s";
+        avgTimeTakenDisplay.transform.GetComponent<TextMeshProUGUI>().text = "Average Time Per Shape: " + avgTimeTaken.ToString("F2") + "s";
         
         resetCollider.gameObject.SetActive(false);
         
@@ -458,6 +459,10 @@ public class RotationTestManager : MonoBehaviour{
     public void NextShape(){
         Debug.Log("NEXT");
         timerOn = false;
+        if (shapeIndex >= 4){
+            print("avggggggg");
+            avgTimeTaken = timeTaken / ((shapeIndex) - 3); //average is time taken / shape collection minus the number of practice questions 5
+        }
         nextButton.interactable = false;
         nextButton.transform.DOScale(0, animationDuration*2);
         StartCoroutine(CheckAnswerSequence(animationDuration));
