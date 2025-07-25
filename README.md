@@ -6,6 +6,9 @@ A Unity-based adaptation of the standard paper-based Mental Rotation Test, provi
 
 This test presents participants with 12 progressively complex 3D shapes constructed from cubic blocks. For each task, participants view a reference shape and must identify two correct rotated versions from four options. The system automatically tracks completion times and provides visual feedback for correct/incorrect selections.
 
+<img width="1846" height="1153" alt="Mental rotation fig" src="https://github.com/user-attachments/assets/af896675-4efc-46a5-bea6-961913747074" />
+
+
 ## Key Features
 
 - **Progressive Complexity**: Shape complexity increases across 12 tasks
@@ -30,6 +33,9 @@ The current version requires manual score calculation. Follow these steps:
 3. **Calculate Final Score**:
    - Average the adjusted total times from both runs
    - Lower scores indicate better spatial reasoning performance
+  
+<img width="2481" height="1397" alt="mental rotation 12" src="https://github.com/user-attachments/assets/057c15ff-5545-433e-aaaf-6cb66fa23fbe" />
+
 
 ## Usage
 
