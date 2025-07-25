@@ -1,6 +1,10 @@
 # 3D Mental Rotation Test (3D-MRT)
 
-A Unity-based adaptation of the standard paper-based Mental Rotation Test, providing an interactive high-fidelity 3D assessment of spatial reasoning abilities.
+A Unity-based adaptation of the standard paper-based Mental Rotation Test, providing an interactive high-fidelity 3D assessment of spatial reasoning abilities. 
+
+This is not an exact replication but an similar spatial task that can be used to assess spatial reasoning skills. It is not statistically verified but a prototype for testing 3D spatial reasoning.
+
+https://www.labvanced.com/content/research/en/blog/2024-05-3d-and-2d-mental-rotation-task/
 
 ## Overview
 
@@ -16,6 +20,10 @@ This test presents participants with 12 progressively complex 3D shapes construc
 - **Automatic Timing**: System records total time and calculates average time per shape
 - **Visual Feedback**: Green highlights for correct selections, red for incorrect
 - **Two-Run Protocol**: Participants complete the test twice for reliability
+
+## Limitations
+- **Shapes are pre-difined**: Position of the shapes is randomised but they are currenly pre-made prefabs
+- **Shapes is not automated**: Scoring method listed below is currenly requires manual assessment
 
 ## Scoring Method
 
